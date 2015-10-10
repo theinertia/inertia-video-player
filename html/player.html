@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body style="margin: 0; padding: 0">
+    <video id="player" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%">
+      <p>Please enable Javascript to play video</p>
+    </video>
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+    <script>
+    (function () {
+      function onScriptReady() {
+        window.inertiaVideoPlayer('player', window);
+      }
+
+      var s = document.createElement('script');
+      s.async = s.defer = true;
+      s.src = '{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}';
+      s.onload = s.onreadystatechange = function () {
+        if (!s.readyState || /loaded|complete/.test(s.readyState)) {
+          onScriptReady();
+          s.onload = s.onreadystatechange = null;
+          s = null;
+        }
+      };
+      document.body.appendChild(s);
+    })();
+    </script>
+    {% } %}
+  </body>
+</html>
