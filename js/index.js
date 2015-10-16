@@ -53,13 +53,11 @@ function setupDesktopPlayer(el, cfg) {
     if (cfg.preroll) {
       player.ima.initializeAdDisplayContainer();
       player.ima.requestAds();
+      player.play();
     }
   };
 
-  player.ready(function () {
-    player.one('click', onClick);
-  });
-
+  player.one('click', onClick);
   return player;
 }
 
