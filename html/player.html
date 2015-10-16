@@ -4,14 +4,14 @@
     <link rel="stylesheet" href="index.css" />
   </head>
   <body style="margin: 0; padding: 0">
-    <video id="player" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%">
-      <p>Please enable Javascript to play video</p>
-    </video>
+    <div id="player-container"></div>
+    <script src="//imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+
     {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
     <script>
     (function () {
       function onScriptReady() {
-        window.inertiaVideoPlayer('player', window);
+        window.inertiaVideoPlayer('player-container', window);
       }
 
       var s = document.createElement('script');

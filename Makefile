@@ -1,10 +1,15 @@
 
 build: node_modules
+	rm -rf ./dist/
+	mkdir -p ./dist/font/
 	NODE_ENV=production ./node_modules/.bin/webpack \
 		--config webpack.config.js \
 		--optimize-minimize \
 		--optimize-dedupe \
 		--colors
+
+	./node_modules/.bin/lessc --include-path=./ --compress ./less/index.less ./dist/index.css
+	cp ./node_modules/video.js/dist/video-js/font/* ./dist/font
 
 local: node_modules
 

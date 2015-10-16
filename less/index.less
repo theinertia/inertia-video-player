@@ -4,20 +4,35 @@
 
 @import '/node_modules/video.js/dist/video-js/video-js.less';
 @import (less) '/node_modules/videojs-contrib-ads/src/videojs.ads.css';
-@import (less) '/node_modules/videojs-vast-plugin/videojs.vast.css';
-
+//@import (less) '/node_modules/videojs-vast-plugin/videojs.vast.css';
+@import (less) '/node_modules/videojs-ima/src/videojs.ima.css';
 
 html, body {
   height: 100%;
 }
 
-//@main-font-color: #555;
+@main-font-color: #fff;
 @control-bg-color: #07141E; /*#09b1d8;*/
 
 @big-play-align: center;
 @big-play-vertical-align: middle;
 
-@big-play-font-size: 1.5em;
+@big-play-font-size: 2em;
+@big-play-width: 3em;
+@big-play-height: 2em;
 @big-play-border-radius: 0.2em;
+@big-play-border-width: 0;
 
 @slider-background-color: #09b1d8;
+
+#player-container {
+  height: 100%;
+}
+
+.video-js-mobile {
+  background: url(images/playbutton.png) center 50%;
+}
+
+.vjs-default-skin .vjs-big-play-button:before {
+  text-shadow: none;
+}

@@ -29,4 +29,5 @@ server.use(webpackMiddleware(webpack(webpackConfig), {
 
 server.use('/dist/font', express.static(path.join(__dirname, 'node_modules', 'video.js', 'dist', 'video-js', 'font')));
 server.use('/', express.static(path.join(__dirname)));
+server.use('/dist/images', express.static(path.join(__dirname, 'images')));
 server.listen(6007);
