@@ -4,6 +4,7 @@
 
 var config = require('./config');
 var isMobile = require('ismobilejs').any;
+//var WebVTT = window.WebVTT = require('vtt.js').WebVTT;
 var videojs = window.videojs = require('video.js');
 
 // Plugins use + modify on globals
@@ -41,12 +42,22 @@ function setupDesktopPlayer(el, cfg) {
   var player = videojs(el.id);
 
   if (cfg.preroll) {
-    player.ads();
+    player.ads({
+      prerollTimeout: 1000,
+      debug: true
+    });
+
     player.vast({
       url: cfg.preroll,
       skip: -1
     });
   }
+
+  ['adtimeout', 'adserror'].forEach(function (e) {
+    player.on(e, function () {
+      this.play();
+    });
+  });
 
   return player;
 }

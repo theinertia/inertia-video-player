@@ -24,7 +24,8 @@
     "video.js": "4.12.15",
     "videojs-contrib-ads": "1.1.0",
     "videojs-youtube": "1.2.13",
-    "videojs-vimeo": "1.0.2",
+    "videojs-vimeo": "theinertia/videojs-vimeo#accept_player_url",
+    "vtt.js": "git+https://github.com/gkatsev/vtt.js.git#vjs-v0.12.1",
     "webpack": "1.12.2",
     "webpack-dev-middleware": "1.0.11"
   },
