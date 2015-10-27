@@ -44,6 +44,7 @@ function trimConfig(rawCfg) {
 
   cfg.techOrder.push('html5');
   cfg.autoplay = rawCfg.autoplay || false;
+  cfg.ytcontrols = 2;
 
   if (!cfg.sources) {
     cfg.src = rawCfg.src;
