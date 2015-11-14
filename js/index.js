@@ -4,14 +4,15 @@
 
 var config = require('./config');
 var isMobile = require('ismobilejs').any;
+//var WebVTT = window.WebVTT = require('vtt.js').WebVTT;
 var videojs = window.videojs = require('video.js');
 
 // Plugins use + modify on globals
+require('vast-client/vast-client');
+require('videojs-vast-plugin/lib/videojs-contrib-ads/videojs.ads');
+require('videojs-vast-plugin/videojs.vast.js');
 require('videojs-vimeo');
 require('videojs-youtube');
-require('vast-client/vast-client');
-require('imports?define=>false!videojs-contrib-ads/src/videojs.ads');
-require('videojs-ima');
 
 /**
  * @param {Element} el
@@ -19,18 +20,16 @@ require('videojs-ima');
  * @return {videojs}
  */
 function setupMobilePlayer(el, cfg) {
-  var player = videojs(el.id, cfg);
+  var player = videojs(el.id);
 
-  if (cfg.preroll && cfg.techOrder[0] === 'html5') {
-    player.ima({
-      debug: true,
-      id: el.id,
-      adTagUrl: cfg.preroll,
-      nativeControlsForTouch: false
+  if (cfg.preroll) {
+    player.ads();
+    player.vast({
+      url: cfg.preroll,
+      skip: -1
     });
-    player.ima.initializeAdDisplayContainer();
-    player.ima.requestAds();
   }
+
   return player;
 }
 
@@ -40,24 +39,26 @@ function setupMobilePlayer(el, cfg) {
  * @return {videojs}
  */
 function setupDesktopPlayer(el, cfg) {
-  var player = videojs(el.id, cfg);
+  var player = videojs(el.id);
 
   if (cfg.preroll) {
-    player.ima({
-      id: el.id,
-      adTagUrl: cfg.preroll
+    player.ads({
+      prerollTimeout: 1000,
+      debug: true
+    });
+
+    player.vast({
+      url: cfg.preroll,
+      skip: -1
     });
   }
 
-  var onClick = function () {
-    if (cfg.preroll) {
-      player.ima.initializeAdDisplayContainer();
-      player.ima.requestAds();
-      player.play();
-    }
-  };
+  ['adtimeout', 'adserror'].forEach(function (e) {
+    player.on(e, function () {
+      this.play();
+    });
+  });
 
-  player.one('click', onClick);
   return player;
 }
 
@@ -80,6 +81,8 @@ function buildPlayer(elementId, win) {
     vid.className = 'video-js vjs-default-skin';
     vid.setAttribute('width', '100%');
     vid.setAttribute('height', '100%');
+    vid.setAttribute('data-setup', JSON.stringify(cfg));
+
     document.body.appendChild(vid);
     document.body.removeChild(container);
 
