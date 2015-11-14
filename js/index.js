@@ -22,6 +22,7 @@ require('videojs-youtube');
 function setupMobilePlayer(el, cfg) {
   var player = videojs(el.id);
 
+  /*
   if (cfg.preroll) {
     player.ads();
     player.vast({
@@ -29,7 +30,7 @@ function setupMobilePlayer(el, cfg) {
       skip: -1
     });
   }
-
+  */
   return player;
 }
 
