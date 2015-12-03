@@ -24,7 +24,7 @@
     "videojs-contrib-ads": "1.1.0",
     "videojs-ima": "googleads/videojs-ima#67a62b8efddf3e2ab3920a5d2fd2a82b6c21bffd",
     "videojs-youtube": "1.2.13",
-    "videojs-vimeo": "1.0.2",
+    "videojs-vimeo": "theinertia/videojs-vimeo#accept_player_url",
     "webpack": "1.12.2",
     "webpack-dev-middleware": "1.0.11"
   },

@@ -19,19 +19,7 @@ require('videojs-ima');
  * @return {videojs}
  */
 function setupMobilePlayer(el, cfg) {
-  var player = videojs(el.id, cfg);
-
-  if (cfg.preroll && cfg.techOrder[0] === 'html5') {
-    player.ima({
-      debug: true,
-      id: el.id,
-      adTagUrl: cfg.preroll,
-      nativeControlsForTouch: false
-    });
-    player.ima.initializeAdDisplayContainer();
-    player.ima.requestAds();
-  }
-  return player;
+  return videojs(el.id, cfg);
 }
 
 /**
@@ -80,6 +68,8 @@ function buildPlayer(elementId, win) {
     vid.className = 'video-js vjs-default-skin';
     vid.setAttribute('width', '100%');
     vid.setAttribute('height', '100%');
+    vid.setAttribute('data-setup', JSON.stringify(cfg));
+
     document.body.appendChild(vid);
     document.body.removeChild(container);
 
