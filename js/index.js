@@ -28,7 +28,8 @@ function setupMobilePlayer(el, cfg) {
  * @return {videojs}
  */
 function setupDesktopPlayer(el, cfg) {
-  var player = videojs(el.id, cfg);
+  var player = videojs(el.id);
+  var adRun = false;
 
   if (cfg.preroll) {
     player.ima({
@@ -38,14 +39,35 @@ function setupDesktopPlayer(el, cfg) {
   }
 
   var onClick = function () {
-    if (cfg.preroll) {
+    if (cfg.preroll && !adRun) {
+      adRun = true;
       player.ima.initializeAdDisplayContainer();
       player.ima.requestAds();
       player.play();
     }
   };
 
+  var onPlay = function () {
+    if (cfg.preroll && !adRun) {
+      adRun = true;
+      player.pause();
+      player.ima.initializeAdDisplayContainer();
+      player.ima.requestAds();
+      player.play();
+    }
+  };
+
+  var container = document.getElementById('player');
+
+  var onContainerClick = function (event) {
+    event.preventDefault();
+    onClick();
+    container.removeEventListener('click', onContainerClick);
+  };
+
   player.one('click', onClick);
+  player.on('play', onPlay);
+  container.addEventListener('click', onContainerClick, true);
   return player;
 }
 

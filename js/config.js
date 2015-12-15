@@ -49,7 +49,8 @@ function trimConfig(rawCfg) {
     cfg.src = rawCfg.src;
   }
 
-  cfg.preroll = rawCfg.preroll || 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300|640x480&iu=/5127455/pre_roll_vidroll_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=' + document.location.href + '&description_url=[description_url]&correlator=' + Date.now();
+  cfg.preroll = decodeURIComponent(rawCfg.preroll || 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300|640x480&iu=/5127455/pre_roll_vidroll_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&description_url=[description_url]&correlator=[timestamp]');
+  cfg.preroll = cfg.preroll.replace('[timestamp]', Date.now()).replace('[referrer_url]', document.location.href);
   return cfg;
 }
 
