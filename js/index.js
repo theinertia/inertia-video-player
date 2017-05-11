@@ -22,15 +22,25 @@ require('videojs-youtube');
 function setupMobilePlayer(el, cfg) {
   var player = videojs(el.id);
 
-  /*
-  if (cfg.preroll) {
-    player.ads();
+  // If non-yt / vimeo video, then mobile preroll should work
+  if (cfg.preroll && cfg.src) {
+    player.ads({
+      prerollTimeout: 1000,
+      debug: true
+    });
+
     player.vast({
       url: cfg.preroll,
       skip: -1
     });
   }
-  */
+
+  ['adtimeout', 'adserror'].forEach(function (e) {
+    player.on(e, function () {
+      this.play();
+    });
+  });
+
   return player;
 }
 
