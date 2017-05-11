@@ -32,7 +32,7 @@ function trimConfig(rawCfg) {
   }
 
   var techOrders = ['vimeo', 'youtube'];
-  cfg.techOrder = ['html5'];
+  cfg.techOrder = [];
 
   if (typeof rawCfg.src === 'string') {
     forEach(techOrders, function (order) {
@@ -43,6 +43,7 @@ function trimConfig(rawCfg) {
     });
   }
 
+  cfg.techOrder.push('html5');
   cfg.autoplay = rawCfg.autoplay || false;
   cfg.ytcontrols = 2;
 
