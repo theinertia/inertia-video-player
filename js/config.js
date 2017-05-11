@@ -32,6 +32,7 @@ function trimConfig(rawCfg) {
   }
 
   var techOrders = ['vimeo', 'youtube'];
+  cfg.techOrder = ['html5'];
 
   if (typeof rawCfg.src === 'string') {
     forEach(techOrders, function (order) {
@@ -42,12 +43,16 @@ function trimConfig(rawCfg) {
     });
   }
 
-  cfg.techOrder.push('html5');
   cfg.autoplay = rawCfg.autoplay || false;
   cfg.ytcontrols = 2;
 
+  if (rawCfg.poster) {
+    cfg.poster = rawCfg.poster;
+  }
+
   if (!cfg.sources) {
     cfg.src = rawCfg.src;
+    cfg.sources = [{type: 'video/mp4', src: rawCfg.src}];
   }
 
   cfg.preroll = rawCfg.preroll || 'https://pubads.g.doubleclick.net/gampad/ads?sz=400x300|640x480&iu=/5127455/pre_roll_vidroll_unit&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=' + document.location.href + '&description_url=[description_url]&correlator=' + Date.now();
