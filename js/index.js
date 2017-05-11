@@ -25,8 +25,7 @@ function setupMobilePlayer(el, cfg) {
   // If non-yt / vimeo video, then mobile preroll should work
   if (cfg.preroll && cfg.src) {
     player.ads({
-      prerollTimeout: 1000,
-      debug: true
+      prerollTimeout: 1000
     });
 
     player.vast({
@@ -35,9 +34,10 @@ function setupMobilePlayer(el, cfg) {
     });
   }
 
-  ['adtimeout', 'adserror'].forEach(function (e) {
+  ['adtimeout', 'adserror', 'adend', 'adskip'].forEach(function (e) {
     player.on(e, function () {
-      this.play();
+      window.parent.postMessage('ti-ads-complete', '*');
+      player.pause();
     });
   });
 
@@ -52,10 +52,9 @@ function setupMobilePlayer(el, cfg) {
 function setupDesktopPlayer(el, cfg) {
   var player = videojs(el.id);
 
-  if (cfg.preroll) {
+  if (cfg.preroll && cfg.src) {
     player.ads({
-      prerollTimeout: 1000,
-      debug: true
+      prerollTimeout: 1000
     });
 
     player.vast({
@@ -64,9 +63,10 @@ function setupDesktopPlayer(el, cfg) {
     });
   }
 
-  ['adtimeout', 'adserror'].forEach(function (e) {
+  ['adtimeout', 'adserror', 'adend', 'adskip'].forEach(function (e) {
     player.on(e, function () {
-      this.play();
+      window.parent.postMessage('ti-ads-complete', '*');
+      player.pause();
     });
   });
 
@@ -83,11 +83,13 @@ function buildPlayer(elementId, win) {
 
   var cfg = config.get(win || window);
   cfg = config.trim(cfg);
+  cfg.autoplay = true;
 
   var setUp = function () {
     var vid = document.createElement('video');
     vid.id = 'player';
     vid.setAttribute('preload', 'auto');
+    vid.setAttribute('autoplay', true);
     vid.setAttribute('controls', true);
     vid.className = 'video-js vjs-default-skin';
     vid.setAttribute('width', '100%');

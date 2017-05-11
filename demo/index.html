@@ -4,15 +4,22 @@
     <title>Inertia Video Player Demo</title>
   </head>
   <body>
+    <script>
+    window.addEventListener('message', function (event) {
+      if (event.data === 'ti-ads-complete') {
+        console.log('yayayayay');
+      }
+    });
+    </script>
     <!--
       config is:
-      encodeURIComponent(JSON.stringify({src: "https://www.youtube.com/watch?v=UYvs55PBFqE"}))
+      encodeURIComponent(JSON.stringify({src: "http://d1mtg7ztp3oax8.cloudfront.net/small.mp4"}))
     -->
     <iframe
       allowfullscreen
       frameborder="0"
       width="640"
       height="360"
-      src="http://localhost:6007/dist/player.html?config=%7B%22src%22%3A%22https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DUYvs55PBFqE%22%7D">
+      src="http://localhost:6007/dist/player.html?config=%7B%22src%22%3A%22http%3A%2F%2Fd1mtg7ztp3oax8.cloudfront.net%2Fsmall.mp4%22%7D">
   </body>
 </html>
