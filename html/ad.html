@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body style="margin: 0; padding: 0">
+    <div id="player-container"></div>
+    <script>
+
+    </script>
+    {% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+    <script>
+    (function () {
+      function onScriptReady() {
+        window.addEventListener('message', function (event) {
+          if (event.data === 'ti-ads-complete') {
+            document.body.innerHTML = '';
+            document.body.style.background = '#000';
+          }
+        });
+        window.inertiaVideoPlayer('player-container', window);
+      }
+
+      var s = document.createElement('script');
+      s.async = s.defer = true;
+      s.src = '{%=o.htmlWebpackPlugin.files.chunks[chunk].entry %}';
+      s.onload = s.onreadystatechange = function () {
+        if (!s.readyState || /loaded|complete/.test(s.readyState)) {
+          onScriptReady();
+          s.onload = s.onreadystatechange = null;
+          s = null;
+        }
+      };
+      document.body.appendChild(s);
+    })();
+    </script>
+    {% } %}
+  </body>
+</html>

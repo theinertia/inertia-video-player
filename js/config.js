@@ -31,7 +31,7 @@ function trimConfig(rawCfg) {
     throw new Error('Must have src in config');
   }
 
-  var techOrders = ['vimeo', 'youtube'];
+  var techOrders = [];
   cfg.techOrder = [];
 
   if (typeof rawCfg.src === 'string') {

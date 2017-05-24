@@ -11,8 +11,6 @@ var videojs = window.videojs = require('video.js');
 require('vast-client/vast-client');
 require('videojs-vast-plugin/lib/videojs-contrib-ads/videojs.ads');
 require('videojs-vast-plugin/videojs.vast.js');
-require('videojs-vimeo');
-require('videojs-youtube');
 
 /**
  * @param {Element} el

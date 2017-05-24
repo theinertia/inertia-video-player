@@ -33,7 +33,7 @@ module.exports = {
       }
     }),
     new HtmlWebpackPlugin({
-      template: 'html/player.html',
+      template: 'html/ad.html',
       minify: {
         collapseWhitespace: true,
         minifyJS: true
